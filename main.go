@@ -1,27 +1,43 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 	"text/template"
 )
 
 type Note struct {
-	ReasonForExam string
+	ReasonForExam  string
+	NextVisit      string
+	Xrays          string
+	PerioDx        string
+	ClinicalCaries string
 }
 
 func main() {
-	indexTemplatePage := template.Must(template.ParseFiles("index.html"))
+	indexTemplatePage := template.Must(template.ParseFiles("templates/index.html"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		indexTemplatePage.Execute(w, nil)
 	})
 
-	noteTemplate := template.Must(template.ParseFiles("note.html"))
+	noteSubFieldsTemplate := template.Must(template.ParseFiles("templates/noteSubFields.html"))
+	http.HandleFunc("/generate-subfields", func(w http.ResponseWriter, r *http.Request) {
+		data := struct {
+			ReasonForExam string
+		}{ReasonForExam: r.PostFormValue("ReasonForVisit")}
+
+		noteSubFieldsTemplate.Execute(w, data)
+	})
+
+	noteTemplate := template.Must(template.ParseFiles("templates/note.html"))
 	http.HandleFunc("/generate-note", func(w http.ResponseWriter, r *http.Request) {
-		var note Note
-		_ = json.NewDecoder(r.Body).Decode(&note)
-		fmt.Println("Connected is", note)
+		note := Note{
+			ReasonForExam:  r.PostFormValue("ReasonForVisit"),
+			NextVisit:      r.PostFormValue("NextVisit"),
+			Xrays:          r.PostFormValue("Xrays"),
+			PerioDx:        r.PostFormValue("PerioDx"),
+			ClinicalCaries: r.PostFormValue("ClinicalCaries"),
+		}
+
 		noteTemplate.Execute(w, note)
 	})
 

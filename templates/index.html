@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+  </head>
+  <body>
+    <div>
+      <h1>Data Entry</h1>
+      <form hx-post="/generate-note" hx-target="#note" hx-swap="innerHTML">
+        <label for="ReasonForVisit">Reason for Visit:</label>
+        <select id="ReasonForVisit" name="ReasonForVisit" hx-post="/generate-subfields" hx-target="#subfields">
+          <option disabled selected value> -- select an option -- </option>
+          <option value="comprehensive">Comprehensive Exam</option>
+          <option value="recall">Recall Exam</option>
+          <option value="extraction">Extraction</option>
+          <option value="restorative">Restorative</option>
+        </select>
+
+        <div id="subfields"></div>
+
+        <div>
+          <label for="NextVisit">Next Visit:</label>
+          <textarea id="NextVisit" name="NextVisit"></textarea>
+        </div>
+
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div id="note"></div>
+  </body>
+</html>

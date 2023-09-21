@@ -1,0 +1,9 @@
+<p>Pt presents to clinic for {{ .ReasonForExam }}.</p>
+
+{{ if or (eq .ReasonForExam "comprehensive") (eq .ReasonForExam "recall") }}
+  <p>X-rays: {{ .Xrays }}</p>
+  <p>Perio Dx: {{ .PerioDx }}</p>
+  <p>Caries Dx: {{ .ClinicalCaries }}</p>
+{{ end }}
+
+<p>NV: {{ .NextVisit }}</p
