@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+  </head>
+  <body>
+    <div>
+      <h1>Data Entry</h1>
+      <form hx-post="/generate-note" hx-target="#note" hx-swap="outerHTML">
+        <label for="reasonForVisit">Reason for Visit:</label>
+        <select id="reasonForVisit" name="reasonForVisit">
+          <option value="comprehensive exam">Comprehensive Exam</option>
+          <option value="recall exam">Recall Exam</option>
+          <option value="extraction">Extraction</option>
+          <option value="restorative">Restorative</option>
+        </select>
+
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div id="note"></div>
+  </body>
+</html>
