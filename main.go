@@ -6,11 +6,13 @@ import (
 )
 
 type Note struct {
-	ReasonForExam  string
-	NextVisit      string
-	Xrays          string
-	PerioDx        string
-	ClinicalCaries string
+	ReasonForExam           string
+	NextVisit               string
+	Xrays                   string
+	PerioDx                 string
+	ClinicalCaries          string
+	ToothNumbers            string
+	ToothNumbersAndSurfaces string
 }
 
 func main() {
@@ -31,11 +33,13 @@ func main() {
 	noteTemplate := template.Must(template.ParseFiles("templates/note.html"))
 	http.HandleFunc("/generate-note", func(w http.ResponseWriter, r *http.Request) {
 		note := Note{
-			ReasonForExam:  r.PostFormValue("ReasonForVisit"),
-			NextVisit:      r.PostFormValue("NextVisit"),
-			Xrays:          r.PostFormValue("Xrays"),
-			PerioDx:        r.PostFormValue("PerioDx"),
-			ClinicalCaries: r.PostFormValue("ClinicalCaries"),
+			ReasonForExam:           r.PostFormValue("ReasonForVisit"),
+			NextVisit:               r.PostFormValue("NextVisit"),
+			Xrays:                   r.PostFormValue("Xrays"),
+			PerioDx:                 r.PostFormValue("PerioDx"),
+			ClinicalCaries:          r.PostFormValue("ClinicalCaries"),
+			ToothNumbers:            r.PostFormValue("ToothNumbers"),
+			ToothNumbersAndSurfaces: r.PostFormValue("ToothNumbersAndSurfaces"),
 		}
 
 		noteTemplate.Execute(w, note)

@@ -16,7 +16,13 @@
   </div>
 </div>
 {{ else if eq .ReasonForExam "extraction" }}
-  Extraction sub fields
+<div>
+  <label for="ToothNumbers">Tooth Numbers:</label>
+  <textarea id="ToothNumbers" name="ToothNumbers"></textarea>
+</div>
 {{ else if eq .ReasonForExam "restorative" }}
-  Restorative sub fields
+<div>
+  <label for="ToothNumbersAndSurfaces">Tooth Number and Surfaces:</label>
+  <textarea id="ToothNumbersAndSurfaces" name="ToothNumbersAndSurfaces"></textarea>
+</div>
 {{ end }}

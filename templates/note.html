@@ -1,9 +1,21 @@
-<p>Pt presents to clinic for {{ .ReasonForExam }}.</p>
+<p>Pt presents to clinic for {{ .ReasonForExam }}
+{{ if eq .ReasonForExam "extraction" }}
+#{{ .ToothNumbers }}
+{{ else if eq .ReasonForExam "restorative" }}
+#{{ .ToothNumbersAndSurfaces }}
+{{end}}
+.</p>
 
 {{ if or (eq .ReasonForExam "comprehensive") (eq .ReasonForExam "recall") }}
   <p>X-rays: {{ .Xrays }}</p>
   <p>Perio Dx: {{ .PerioDx }}</p>
   <p>Caries Dx: {{ .ClinicalCaries }}</p>
+{{ else if eq .ReasonForExam "extraction" }}
+<p>Elevated soft tissues with periosteal elevator. Elevated teeth and removed with forceps. Applied pressure with gauze and obtained hemostatsis.</p>
+{{ else if eq .ReasonForExam "restorative" }}
+<p>Prepped {{ .ToothNumbersAndSurfaces }} for composite/amalgam and excavated decay. Etch, rinsed, prime+bond, lightly air dried, cured, placed Filtek Supreme shade ____ in increments and cured. Contoured, checked contacts, adjusted occlusion as necessary, and polished. </p>
 {{ end }}
+
+<p>Pt left in stable condition.</p>
 
 <p>NV: {{ .NextVisit }}</p
